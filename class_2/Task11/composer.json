@@ -1,0 +1,13 @@
+{
+    "name": "fgygvuiz/task8",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        },
+        "files":[
+            "src/PointFunction.php"
+        ]
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
