@@ -3,105 +3,46 @@ namespace App;
 
 class Url
 {
-    private string $url;
-    public function __construct(string $url)
+    private string $scheme;
+    private string $host;
+    private string $port;
+    private array $param = [];
+
+    public function __construct(private string $url)
     {
-        $this->url = $url;
+        $parseUrl = parse_url($url);
+        $this->scheme = isset($parseUrl["scheme"])? $parseUrl["scheme"] : "";
+        $this->host =isset($parseUrl["host"])? $parseUrl["host"] : "";
+        $this->port = isset($parseUrl["port"])? $parseUrl["port"] : "";
+
+        if(isset($parseUrl["query"])){
+            parse_str($parseUrl["query"], $this->param);
+        }
     }
 
-    public function make($url)
-    {
-        $components = parse_url($url);
-        if (isset($components["query"])) {
-            parse_str($components["query"], $components["query"]);
-        } else {
-            $components["query"] = [];
-        }
-        return $components;
+    public function getScheme(): string{
+        return $this->scheme;
     }
-    public function getScheme()
+    public function getHostName(): string
     {
-        $temp = self::make($this->url);
-        if (isset($temp['scheme'])) {
-            return $temp["scheme"];
-        }
-        return null;
+        return $this->host;
+    }
+    public function getPort(): string
+    {
+        return $this->port;
     }
 
-    function getHostName()
-    {
-        $temp = self::make($this->url);
-        if (isset($temp['host'])) {
-            return $temp["host"];
-        }
-        return null;
+    public function getQueryParams(): array{
+        return $this->param;
     }
 
+    public function getQueryParam(string $paramName, string $returnWord = null): string|null{
+        return $this->param[$paramName] ?? $returnWord;
+    }
+
+    public function equals(Url $url): bool{
+        return $url->getScheme() === $this->getScheme() && $url->getHostName() === $this->getHostName()
+        && $url->getPort() === $this->getPort()
+        && $this->getQueryParams() === $url->getQueryParams();
+    }
 }
-
-
-// function setScheme(&$data, $scheme)
-// {
-//     $data = make(toString($data));
-//     $data['scheme'] = $scheme;
-// }
-
-// function getScheme($data)
-// {
-//     if (isset($data['scheme'])) {
-//         return $data["scheme"];
-//     }
-//     return null;
-// }
-
-// function setHost(&$data, $host)
-// {
-//     $data['host'] = $host;
-
-// }
-
-// function getHost($data)
-// {
-//     if (isset($data['host'])) {
-//         return $data["host"];
-//     }
-//     return null;
-// }
-
-// function setPath(&$data, $path)
-// {
-//     $data['path'] = $path;
-// }
-
-// function getPath($data)
-// {
-//     if (isset($data['path'])) {
-//         return $data["path"];
-//     }
-//     return null;
-// }
-
-// function setQueryParam(&$data, $key, $value)
-// {
-//     $data["query"][$key] = $value;
-// }
-
-
-// function getQueryParam($data, $paramName = null, $default = null)
-// {
-//     if (!$paramName) {
-//         return http_build_query($data["query"]);
-//     }
-//     return isset($data["query"][$paramName]) ? $data["query"][$paramName] : $default;
-// }
-
-
-// function toString($data)
-// {
-//     $scheme = isset($data['scheme']) ? getScheme($data) . '://' : '';
-//     $host = isset($data['host']) ? getHost($data) : '';
-//     $path = isset($data['path']) ? getPath($data) : '';
-//     $query = isset($data['query']) && !empty($data['query']) ? '?' . getQueryParam($data) : '';
-
-//     return "$scheme$host$path$query";
-// }
