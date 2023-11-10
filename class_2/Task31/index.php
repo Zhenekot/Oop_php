@@ -30,4 +30,32 @@ $raw = [
         'country' => 'usa'
     ],
 ];
-normalize($raw);
+print_r(normalize($raw
+));
+print_r("</br>");
+print_r("</br>");
+$raw = [
+    [
+        'name' => 'pariS ',
+        'country' => ' france'
+    ],
+    [
+        'name' => ' madrid',
+        'country' => ' sPain'
+    ],
+    [
+        'name' => 'valencia',
+        'country' => 'spain'
+    ],
+    [
+        'name' => 'marcel',
+        'country' => 'france'
+    ],
+    [
+        'name' => ' madrid',
+        'country' => ' sPain'
+    ],
+];
+
+print_r(normalize($raw
+));

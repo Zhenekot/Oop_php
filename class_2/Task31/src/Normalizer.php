@@ -2,9 +2,12 @@
 
 namespace App\Normalizer;
 use Illuminate\Support\Collection;
-function normalize(array $city){
+function normalize(array $city):array{
     $city = collect($city);
-    $cmCountry = $city->map(fn($item)=> ['country'=>strtoupper($item['country']), 'name' =>strtoupper($item['name'])]);
-    print_r($cmCountry);
-
+    $result = $city->map(fn($item)=> ['country'=>strtolower(trim($item['country'])), 'name' =>strtolower(trim($item['name']))])
+    ->sort()->unique('name')
+    ->mapToGroups(function (array $item, int $key) {
+        return [$item['country'] => $item['name']];
+    })->toArray();
+    return $result;
 }
