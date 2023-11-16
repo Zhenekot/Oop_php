@@ -1,13 +1,11 @@
 <?php 
 namespace App\Normalizer;
-use Symfony\Component\String\UnicodeString;
+
+use function Symfony\Component\String\s;
 function getQuestions(string $text):string {
-    $uString = new UnicodeString($text);
-    $lines = $uString->split("\r\n");
-
-    $questions = array_filter($lines, fn (UnicodeString $line) => $line->trim()->endsWith('?'));
-
-    $questionsStrings = array_map(fn (UnicodeString $question) => $question->trim()->toString(), $questions);
-
+    $uString = s($text);
+    $lines = $uString->split("\n");
+    $questions = array_filter($lines, fn ($line) => $line->trim()->endsWith('?'));
+    $questionsStrings = array_map(fn ($question) => $question->trim(), $questions);
     return implode("\n", $questionsStrings);
 }
