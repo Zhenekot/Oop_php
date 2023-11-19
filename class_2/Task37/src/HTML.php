@@ -2,11 +2,15 @@
 
 namespace App\HTML;
 
-function getLinks(array $tags):list{
-    if($tags['name'] === 'a' || $tags['name'] === 'link'|| $tags['name'] === 'img'){
-        switch($tags){
-            case $tags['name']->'a', $tags['name']->'link':
-                
+function getLinks(array $tags): array
+{
+    $links = [];
+    foreach ($tags as $tag) {
+        if (in_array($tag['name'], ['a', 'link'])) {
+            $links[] = $tag['href'] ?? '';
+        } elseif ($tag['name'] === 'img') {
+            $links[] = $tag['src'] ?? '';
         }
     }
+    return $links;
 }
