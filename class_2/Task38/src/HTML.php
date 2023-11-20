@@ -16,12 +16,19 @@ function stringify(array $tag): string
     if (!empty($attributes)) {
         $result .= " {$attributes}";
     }
-    
-    if ($tag['tagType'] === 'single') {
-        $result .= ">";
-    } else {
-        $result .=  ">{$tag['body']}</{$tag['name']}>";
+    switch($tag['tagType']){
+        case 'single':
+            $result .= ">";
+            break;
+        case 'pair':
+            $result .=  ">{$tag['body']}</{$tag['name']}>";
+            break;
     }
+    // if ($tag['tagType'] === 'single') {
+    //     $result .= ">";
+    // } else {
+    //     $result .=  ">{$tag['body']}</{$tag['name']}>";
+    // }
 
     return $result;
 }

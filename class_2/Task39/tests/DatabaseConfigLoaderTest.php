@@ -11,7 +11,7 @@ class DatabaseConfigLoaderTest extends TestCase
 
     public function setUp(): void
     {
-        $this->loader = new DatabaseConfigLoader(__DIR__ . '\fixtures');
+        $this->loader = new DatabaseConfigLoader(__DIR__ . '/fixtures');
     }
 
     public function testLoad1()

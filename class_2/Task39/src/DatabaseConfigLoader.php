@@ -8,7 +8,8 @@ class DatabaseConfigLoader{
     public function __construct($path) {
         $this->path = $path;
     }
-    public function load($env):array {
+
+    public function load(string $env):array {
         $data = file_get_contents($this->path .DIRECTORY_SEPARATOR. "database." . $env . ".json");
         $data = json_decode($data, true);
         if(isset($data['extend'])){
