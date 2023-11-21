@@ -6,12 +6,18 @@ class Normal
 {
     public function move(&$field):void
     {
-        for ($i = 3; $i >= 1; $i--) {
-            for ($j = 1; $j <= 3; $j++) {
-                $strStep = "{$i}, {$j}";
+        $breakLoops = false;
+        for ($i = 1; $i <= 3; $i++) {
+            for ($j = 3; $j >= 1; $j--) {
+                $strStep = "{$j}, {$i}";
                 if ($field[$strStep] === 'true') {
                     $field[$strStep] = 'O';
+                    $breakLoops = true;
+                    break;
                 }
+            }
+            if ($breakLoops) {
+                break;
             }
         }
     }

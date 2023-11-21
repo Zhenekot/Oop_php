@@ -12,9 +12,6 @@ class TicTacToe
     public function __construct($level = 'easy')
     {
         $this->field = [
-            // '1' => [1 => '', 2 => '', 3 => ''],
-            // '2' => [1 => '', 2 => '', 3 => ''],
-            // '3' => [1 => '', 2 => '', 3 => ''],
             '1, 1' => 'true',
             '1, 2' => 'true',
             '1, 3' => 'true',
@@ -57,8 +54,8 @@ class TicTacToe
         }
         $strStep = "{$num1}, {$num2}";
         if ($this->field[$strStep] === 'true') {
-            $this->field[$strStep] = 'X';
-           
+            $this->field[$strStep] = 'X';    
+            
         }
         return $this->winner('X');
     }
