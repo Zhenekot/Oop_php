@@ -14,12 +14,12 @@ class ConfigFactory
         switch ($pathExctension) {
             case 'yml':
             case 'yaml':
-                $pars = new YamlParser($path);
+                $pars = new YamlParser();
                 break;
             case 'json':
-                $pars = new JsonParser($path);
+                $pars = new JsonParser();
                 break;
         }
-        return new Config($pars->parse());
+        return new Config($pars->parse($path));
     }
 }
